@@ -9,14 +9,14 @@ def generate_graph():
     graph["anuj"] = []
     graph["peggy"] = []
     graph["thom"] = []
-    graph["jonny "] = []
+    graph["jonny"] = []
 
     return graph
-
+ 
 
 
 def person_is_seller(name):
-    return name[-1] == 'm'
+    return name[-1] == 'y'
 
 def is_mango_seller_in_network():
     search_queue = deque()
@@ -25,14 +25,18 @@ def is_mango_seller_in_network():
     network_graph = generate_graph()
 
     search_queue += network_graph["you"]
+    searched = []
 
     while search_queue:
         person = search_queue.popleft()
-        if person_is_seller(person):
-            print(person + " is a mango seller")
-            return True
-        else:
-            search_queue += network_graph[person]
+        if person not in searched:
+
+            if person_is_seller(person):
+                print(person + " is a mango seller")
+                return True
+            else:
+                search_queue += network_graph[person]
+                searched.append(person)
 
     return False
 
